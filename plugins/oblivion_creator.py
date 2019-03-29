@@ -108,4 +108,3 @@ class Plugin(PluginBase):
 
     def get_plugin_version(self):
         return self.plugin_version
-

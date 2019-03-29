@@ -75,10 +75,9 @@ class Plugin(PluginBase):
                 utils.echo(mumble.channels[mumble.users.myself['channel_id']],
                            "OSRS Wiki Results:\nNo search results found.")
                 return
-            else:
-                utils.echo(mumble.channels[mumble.users.myself['channel_id']],
-                           "OSRS Wiki Results:\n%s\n" % formatted_results)
-                return
+            utils.echo(mumble.channels[mumble.users.myself['channel_id']],
+                       "OSRS Wiki Results:\n%s\n" % formatted_results)
+            return
 
         elif command == "quest":
             if self.osrs_wiki is None:
@@ -104,7 +103,7 @@ class Plugin(PluginBase):
             tds = soup.find_all('td', class_="questdetails-info")
             final_text = "<br><u><font color='cyan'>%s Quest Summary</font></u><br>" \
                          "<a href='%s'>%s</a>" % (page.title, page.url, page.url)
-            for i in range(len(tds)):
+            for i, item in enumerate(tds):
                 f_text = ""
 
                 if i == 0:
@@ -124,7 +123,7 @@ class Plugin(PluginBase):
 
                 counter = 0
                 if i == 4 or i == 6:
-                    uls = tds[i].find_all('ul')
+                    uls = item.find_all('ul')
                     if uls is not None:
                         for ul in uls:
                             lis = ul.find_all('li')
@@ -133,9 +132,9 @@ class Plugin(PluginBase):
                     else:
                         f_text += "UNAVAILABLE"
                 elif i == 5:
-                    uls = tds[i].find_all('ul')
+                    uls = item.find_all('ul')
                     if uls is not None:
-                        for ul in tds[i].find_all('ul'):
+                        for ul in item.find_all('ul'):
                             lis = ul.find_all('li')
                             for li in lis:
                                 f_text += "<font color='cyan'>-- </font>"+li.text+"<br>"
@@ -155,8 +154,8 @@ class Plugin(PluginBase):
 
     def get_choices(self, search_results):
         list_urls = "<br>"
-        if len(search_results) > 0:
-            for i in range(len(search_results)):
+        if search_results:
+            for i in enumerate(search_results):
                 completed_url = search_results[i][2]
                 list_urls += "<font color='cyan'>[%d]</font>: <a href='%s'>[%s]</a><br>" % (i, completed_url, completed_url)
         else:
