@@ -1,4 +1,6 @@
 # JJMumbleBot-PluginLibrary
+[![CodeFactor](https://www.codefactor.io/repository/github/duckboss/jjmumblebot-pluginlibrary/badge/master)](https://www.codefactor.io/repository/github/duckboss/jjmumblebot-pluginlibrary/overview/master)
+<br>
 A collection of plugins for JJMumbleBot that are not built-in.
 
 
