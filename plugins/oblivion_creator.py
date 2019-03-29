@@ -1,5 +1,5 @@
 import utils
-from plugin_template import PluginBase
+from templates.plugin_template import PluginBase
 import random
 from datetime import datetime
 
@@ -15,6 +15,8 @@ class Plugin(PluginBase):
     skill_list = ['Blade', 'Blunt', 'Hand To Hand', 'Armorer', 'Block', 'Heavy Armor', 'Athletics', 'Acrobatics',
                   'Light Armor', 'Security', 'Sneak', 'Marksman', 'Mercantile', 'Speechcraft', 'Illusion', 'Alchemy',
                   'Conjuration', 'Mysticism', 'Alteration', 'Destruction', 'Restoration']
+
+    plugin_version = "1.0.1"
 
     def __init__(self):
         print("Oblivion Character Creator Plugin Initialized.")
@@ -40,7 +42,7 @@ class Plugin(PluginBase):
                        "Oblivion character generated for: {actor}".format(actor=mumble.users[text.actor]['name']))
 
             utils.msg(mumble, mumble.users[text.actor]['name'],
-                       "<br><font color='red'>Oblivion Character Generated -</font><br>{ret}".format(ret=ret_text))
+                       "<br><font color='red'>Character Generated -</font><br>{ret}".format(ret=ret_text))
 
             return
 
@@ -59,7 +61,7 @@ class Plugin(PluginBase):
                        "Oblivion character generated for: {actor}".format(actor=mumble.users[text.actor]['name']))
 
             utils.echo(mumble.channels[mumble.users.myself['channel_id']],
-                       "<br><font color='red'>Oblivion Character Generated -</font><br>{ret}".format(ret=ret_text))
+                       "<br><font color='red'>Character Generated -</font><br>{ret}".format(ret=ret_text))
 
             return
 
@@ -103,4 +105,7 @@ class Plugin(PluginBase):
 
     def help(self):
         return self.help_data
+
+    def get_plugin_version(self):
+        return self.plugin_version
 

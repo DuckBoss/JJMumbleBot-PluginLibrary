@@ -1,4 +1,4 @@
-from plugin_template import PluginBase
+from templates.plugin_template import PluginBase
 import utils
 import requests
 
@@ -7,6 +7,7 @@ class Plugin(PluginBase):
     help_data = "<br><b><font color='red'>#####</font> LMGTFY Plugin Help <font color='red'>#####</font></b><br> \
                     All commands can be run by typing it in the channel or privately messaging DuckBot.<br>\
                     <b>!lmgtfy 'message'</b>: Let me google that for you..."
+    plugin_version = "1.0.1"
 
     def __init__(self):
         print("LMGTFY Plugin Initialized.")
@@ -38,3 +39,6 @@ class Plugin(PluginBase):
 
     def help(self):
         return self.help_data
+
+    def get_plugin_version(self):
+        return self.plugin_version

@@ -1,6 +1,6 @@
 from mediawiki import MediaWiki
 from mediawiki import exceptions
-from plugin_template import PluginBase
+from templates.plugin_template import PluginBase
 import utils
 from bs4 import BeautifulSoup
 import urllib.request
@@ -14,12 +14,14 @@ class Plugin(PluginBase):
                     <b>!quest 'quest_name'</b>: Searches the osrs wiki for quest details.<br>\
                     <b>!price 'item_name'</b>: Searches the rsbuddy exchange for pricing information."
 
-    osrs_user_agent = 'JJMumbleBot_User_Agent'
+    osrs_user_agent = 'DuckBot_User_Agent'
     osrs_wiki_url = 'https://oldschool.runescape.wiki/api.php'
     osrs_wiki = None
 
     json_url = "https://rsbuddy.com/exchange/summary.json"
     json_url2 = "https://api.rsbuddy.com/grandExchange?a=guidePrice&i="
+
+    plugin_version = "1.0.1"
 
     def __init__(self):
         print("Osrs_Wiki Plugin Initialized.")
@@ -39,6 +41,10 @@ class Plugin(PluginBase):
                 self.osrs_wiki = MediaWiki(url=self.osrs_wiki_url, user_agent=self.osrs_user_agent)
 
             parameter = message_parse[1]
+            if parameter == "justin":
+                utils.echo(mumble.channels[mumble.users.myself['channel_id']],
+                           "I'm sorry, but this is fucking worthless.")
+                return
 
             search_criteria = self.manage_search_criteria(parameter)
             all_item_data = self.pull_json(search_criteria)
@@ -181,3 +187,6 @@ class Plugin(PluginBase):
 
     def help(self):
         return self.help_data
+
+    def get_plugin_version(self):
+        return self.plugin_version
