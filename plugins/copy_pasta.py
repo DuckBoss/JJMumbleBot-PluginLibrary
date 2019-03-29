@@ -1,5 +1,5 @@
 import utils
-from plugin_template import PluginBase
+from templates.plugin_template import PluginBase
 
 
 class Plugin(PluginBase):
@@ -8,6 +8,7 @@ class Plugin(PluginBase):
                 <b>!shrug</b>: Displays the shrug emoji.<br>\
                 <b>!lenny</b>: Displays the lenny face emoji.<br>\
                 <b>!fliptable</b>: Displays the flip table emoji."
+    plugin_version = "1.0.1"
 
     def __init__(self):
         print("Copy_Pasta Plugin Initialized.")
@@ -40,4 +41,7 @@ class Plugin(PluginBase):
 
     def help(self):
         return self.help_data
+
+    def get_plugin_version(self):
+        return self.plugin_version
 

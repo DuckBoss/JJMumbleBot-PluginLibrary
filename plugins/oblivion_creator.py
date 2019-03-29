@@ -1,5 +1,5 @@
 import utils
-from plugin_template import PluginBase
+from templates.plugin_template import PluginBase
 import random
 from datetime import datetime
 
@@ -15,6 +15,8 @@ class Plugin(PluginBase):
     skill_list = ['Blade', 'Blunt', 'Hand To Hand', 'Armorer', 'Block', 'Heavy Armor', 'Athletics', 'Acrobatics',
                   'Light Armor', 'Security', 'Sneak', 'Marksman', 'Mercantile', 'Speechcraft', 'Illusion', 'Alchemy',
                   'Conjuration', 'Mysticism', 'Alteration', 'Destruction', 'Restoration']
+
+    plugin_version = "1.0.1"
 
     def __init__(self):
         print("Oblivion Character Creator Plugin Initialized.")
@@ -104,3 +106,5 @@ class Plugin(PluginBase):
     def help(self):
         return self.help_data
 
+    def get_plugin_version(self):
+        return self.plugin_version

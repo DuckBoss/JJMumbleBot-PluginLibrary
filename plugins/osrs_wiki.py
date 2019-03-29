@@ -1,6 +1,6 @@
 from mediawiki import MediaWiki
 from mediawiki import exceptions
-from plugin_template import PluginBase
+from templates.plugin_template import PluginBase
 import utils
 from bs4 import BeautifulSoup
 import urllib.request
@@ -21,6 +21,8 @@ class Plugin(PluginBase):
     json_url = "https://rsbuddy.com/exchange/summary.json"
     json_url2 = "https://api.rsbuddy.com/grandExchange?a=guidePrice&i="
 
+    plugin_version = "1.0.1"
+
     def __init__(self):
         print("Osrs_Wiki Plugin Initialized.")
         super().__init__()
@@ -39,6 +41,10 @@ class Plugin(PluginBase):
                 self.osrs_wiki = MediaWiki(url=self.osrs_wiki_url, user_agent=self.osrs_user_agent)
 
             parameter = message_parse[1]
+            if parameter == "justin":
+                utils.echo(mumble.channels[mumble.users.myself['channel_id']],
+                           "I'm sorry, but this is fucking worthless.")
+                return
 
             search_criteria = self.manage_search_criteria(parameter)
             all_item_data = self.pull_json(search_criteria)
@@ -69,10 +75,9 @@ class Plugin(PluginBase):
                 utils.echo(mumble.channels[mumble.users.myself['channel_id']],
                            "OSRS Wiki Results:\nNo search results found.")
                 return
-            else:
-                utils.echo(mumble.channels[mumble.users.myself['channel_id']],
-                           "OSRS Wiki Results:\n%s\n" % formatted_results)
-                return
+            utils.echo(mumble.channels[mumble.users.myself['channel_id']],
+                       "OSRS Wiki Results:\n%s\n" % formatted_results)
+            return
 
         elif command == "quest":
             if self.osrs_wiki is None:
@@ -98,7 +103,7 @@ class Plugin(PluginBase):
             tds = soup.find_all('td', class_="questdetails-info")
             final_text = "<br><u><font color='cyan'>%s Quest Summary</font></u><br>" \
                          "<a href='%s'>%s</a>" % (page.title, page.url, page.url)
-            for i in range(len(tds)):
+            for i, item in enumerate(tds):
                 f_text = ""
 
                 if i == 0:
@@ -118,7 +123,7 @@ class Plugin(PluginBase):
 
                 counter = 0
                 if i == 4 or i == 6:
-                    uls = tds[i].find_all('ul')
+                    uls = item.find_all('ul')
                     if uls is not None:
                         for ul in uls:
                             lis = ul.find_all('li')
@@ -127,9 +132,9 @@ class Plugin(PluginBase):
                     else:
                         f_text += "UNAVAILABLE"
                 elif i == 5:
-                    uls = tds[i].find_all('ul')
+                    uls = item.find_all('ul')
                     if uls is not None:
-                        for ul in tds[i].find_all('ul'):
+                        for ul in item.find_all('ul'):
                             lis = ul.find_all('li')
                             for li in lis:
                                 f_text += "<font color='cyan'>-- </font>"+li.text+"<br>"
@@ -149,8 +154,8 @@ class Plugin(PluginBase):
 
     def get_choices(self, search_results):
         list_urls = "<br>"
-        if len(search_results) > 0:
-            for i in range(len(search_results)):
+        if search_results:
+            for i in enumerate(search_results):
                 completed_url = search_results[i][2]
                 list_urls += "<font color='cyan'>[%d]</font>: <a href='%s'>[%s]</a><br>" % (i, completed_url, completed_url)
         else:
@@ -181,3 +186,6 @@ class Plugin(PluginBase):
 
     def help(self):
         return self.help_data
+
+    def get_plugin_version(self):
+        return self.plugin_version
