@@ -1,4 +1,6 @@
 # JJMumbleBot-PluginLibrary
+![GitHub release](https://img.shields.io/github/release/DuckBoss/JJMumbleBot.svg)
+[![Packagist](https://img.shields.io/badge/License-GPL-blue.svg)](https://github.com/DuckBoss/JJMumbleBot/blob/master/LICENSE)
 [![CodeFactor](https://www.codefactor.io/repository/github/duckboss/jjmumblebot-pluginlibrary/badge/master)](https://www.codefactor.io/repository/github/duckboss/jjmumblebot-pluginlibrary/overview/master)
 <br>
 A collection of plugins for JJMumbleBot that are not built-in.
