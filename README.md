@@ -1,3 +1,6 @@
+
+### This version of JJMumbleBot-PluginLibrary is deprecated and is no longer being supported. Please check the master branch and releases for the newest versions of these plugins. This branch only exists for legacy users.
+
 # JJMumbleBot-PluginLibrary
 A collection of plugins for JJMumbleBot that are not built-in.
 
