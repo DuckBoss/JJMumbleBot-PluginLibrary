@@ -14,7 +14,7 @@ class Plugin(PluginBase):
                     <b>!quest 'quest_name'</b>: Searches the osrs wiki for quest details.<br>\
                     <b>!price 'item_name'</b>: Searches the rsbuddy exchange for pricing information."
 
-    osrs_user_agent = 'DuckBot_User_Agent'
+    osrs_user_agent = 'JJMumbleBot_User_Agent'
     osrs_wiki_url = 'https://oldschool.runescape.wiki/api.php'
     osrs_wiki = None
 

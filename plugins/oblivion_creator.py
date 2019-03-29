@@ -42,7 +42,7 @@ class Plugin(PluginBase):
                        "Oblivion character generated for: {actor}".format(actor=mumble.users[text.actor]['name']))
 
             utils.msg(mumble, mumble.users[text.actor]['name'],
-                       "<br><font color='red'>Character Generated -</font><br>{ret}".format(ret=ret_text))
+                       "<br><font color='red'>Oblivion Character Generated -</font><br>{ret}".format(ret=ret_text))
 
             return
 
@@ -61,7 +61,7 @@ class Plugin(PluginBase):
                        "Oblivion character generated for: {actor}".format(actor=mumble.users[text.actor]['name']))
 
             utils.echo(mumble.channels[mumble.users.myself['channel_id']],
-                       "<br><font color='red'>Character Generated -</font><br>{ret}".format(ret=ret_text))
+                       "<br><font color='red'>Oblivion Character Generated -</font><br>{ret}".format(ret=ret_text))
 
             return
 
