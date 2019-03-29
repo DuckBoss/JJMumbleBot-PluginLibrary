@@ -1,5 +1,5 @@
 # JJMumbleBot-PluginLibrary
-![GitHub release](https://github.com/DuckBoss/JJMumbleBot-PluginLibrary/JJMumbleBot.svg)
+![GitHub release](https://github.com/DuckBoss/JJMumbleBot-PluginLibrary/JJMumbleBot-PluginLibrary.svg)
 [![Packagist](https://img.shields.io/badge/License-GPL-blue.svg)](https://github.com/DuckBoss/JJMumbleBot-PluginLibrary/blob/master/LICENSE)
 [![CodeFactor](https://www.codefactor.io/repository/github/duckboss/jjmumblebot-pluginlibrary/badge/master)](https://www.codefactor.io/repository/github/duckboss/jjmumblebot-pluginlibrary/overview/master)
 <br>
