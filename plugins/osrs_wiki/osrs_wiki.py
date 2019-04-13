@@ -1,10 +1,12 @@
 from mediawiki import MediaWiki
 from mediawiki import exceptions
 from templates.plugin_template import PluginBase
+from helpers.global_access import debug_print, reg_print
 import utils
 from bs4 import BeautifulSoup
 import urllib.request
 import json
+import privileges as pv
 
 
 class Plugin(PluginBase):
@@ -21,15 +23,16 @@ class Plugin(PluginBase):
     json_url = "https://rsbuddy.com/exchange/summary.json"
     json_url2 = "https://api.rsbuddy.com/grandExchange?a=guidePrice&i="
 
-    plugin_version = "1.0.1"
+    plugin_version = "1.6.0"
+    priv_path = "osrs_wiki/osrs_wiki_privileges.csv"
 
     def __init__(self):
-        print("Osrs_Wiki Plugin Initialized.")
+        debug_print("Osrs_Wiki Plugin Initialized.")
         super().__init__()
         try:
             self.osrs_wiki = MediaWiki(url=self.osrs_wiki_url, user_agent=self.osrs_user_agent)
         except Exception:
-            print("Osrs_Wiki Plugin could not be initialized.")
+            debug_print("Osrs_Wiki Plugin could not be initialized.")
 
     def process_command(self, mumble, text):
         message = text.message.strip()
@@ -37,15 +40,12 @@ class Plugin(PluginBase):
         command = message_parse[0]
 
         if command == "price":
+            if not pv.plugin_privilege_checker(mumble, text, command, self.priv_path):
+                return
             if self.osrs_wiki is None:
                 self.osrs_wiki = MediaWiki(url=self.osrs_wiki_url, user_agent=self.osrs_user_agent)
 
             parameter = message_parse[1]
-            if parameter == "justin":
-                utils.echo(mumble.channels[mumble.users.myself['channel_id']],
-                           "I'm sorry, but this is fucking worthless.")
-                return
-
             search_criteria = self.manage_search_criteria(parameter)
             all_item_data = self.pull_json(search_criteria)
             if all_item_data is not None:
@@ -62,6 +62,8 @@ class Plugin(PluginBase):
             return
 
         elif command == "osrs":
+            if not pv.plugin_privilege_checker(mumble, text, command, self.priv_path):
+                return
             if self.osrs_wiki is None:
                 self.osrs_wiki = MediaWiki(url=self.osrs_wiki_url, user_agent=self.osrs_user_agent)
 
@@ -80,6 +82,8 @@ class Plugin(PluginBase):
             return
 
         elif command == "quest":
+            if not pv.plugin_privilege_checker(mumble, text, command, self.priv_path):
+                return
             if self.osrs_wiki is None:
                 self.osrs_wiki = MediaWiki(url=self.osrs_wiki_url, user_agent=self.osrs_user_agent)
 
@@ -179,13 +183,17 @@ class Plugin(PluginBase):
         return return_item
 
     def plugin_test(self):
-        print("Osrs_Wiki Plugin self-test callback.")
+        debug_print("Osrs_Wiki Plugin self-test callback.")
 
     def quit(self):
-        print("Exiting Osrs_Wiki Plugin")
+        debug_print("Exiting Osrs_Wiki Plugin")
 
     def help(self):
         return self.help_data
 
     def get_plugin_version(self):
         return self.plugin_version
+
+    def get_priv_path(self):
+        return self.priv_path
+

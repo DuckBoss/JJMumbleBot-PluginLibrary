@@ -1,7 +1,9 @@
 import utils
 from templates.plugin_template import PluginBase
+from helpers.global_access import debug_print, reg_print
 import random
 from datetime import datetime
+import privileges as pv
 
 
 class Plugin(PluginBase):
@@ -16,10 +18,11 @@ class Plugin(PluginBase):
                   'Light Armor', 'Security', 'Sneak', 'Marksman', 'Mercantile', 'Speechcraft', 'Illusion', 'Alchemy',
                   'Conjuration', 'Mysticism', 'Alteration', 'Destruction', 'Restoration']
 
-    plugin_version = "1.0.1"
+    plugin_version = "1.6.0"
+    priv_path = "oblivion_creator/oblivion_creator_privileges.csv"
 
     def __init__(self):
-        print("Oblivion Character Creator Plugin Initialized.")
+        debug_print("Oblivion Character Creator Plugin Initialized.")
         super().__init__()
 
     def process_command(self, mumble, text):
@@ -28,6 +31,8 @@ class Plugin(PluginBase):
         command = message_parse[0]
 
         if command == "oblivion":
+            if not pv.plugin_privilege_checker(mumble, text, command, self.priv_path):
+                return
             self.randomize()
             speciality = self.choose_spec()
             attributes = self.choose_attrs()
@@ -47,6 +52,8 @@ class Plugin(PluginBase):
             return
 
         if command == "oblivion_echo":
+            if not pv.plugin_privilege_checker(mumble, text, command, self.priv_path):
+                return
             self.randomize()
             speciality = self.choose_spec()
             attributes = self.choose_attrs()
@@ -98,13 +105,16 @@ class Plugin(PluginBase):
 
     @staticmethod
     def plugin_test():
-        print("Oblivion Character Creator Plugin self-test callback.")
+        debug_print("Oblivion Character Creator Plugin self-test callback.")
 
     def quit(self):
-        print("Exiting Oblivion Character Creator Plugin")
+        debug_print("Exiting Oblivion Character Creator Plugin")
 
     def help(self):
         return self.help_data
 
     def get_plugin_version(self):
         return self.plugin_version
+
+    def get_priv_path(self):
+        return self.priv_path
