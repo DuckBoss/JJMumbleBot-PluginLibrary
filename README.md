@@ -5,6 +5,8 @@
 <br>
 A collection of plugins for JJMumbleBot that are not built-in.
 
+### Last Compatibility Check: Works on v1.8.0
+
 
 ## Plugins:
 - <b>copy_pasta:</b> A plugin that simply posts ascii text memes in the chat.
