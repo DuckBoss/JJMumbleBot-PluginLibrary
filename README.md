@@ -5,7 +5,7 @@
 <br>
 A collection of plugins for JJMumbleBot that are not built-in.
 
-### Last Compatibility Check: Works on v1.8.0
+### Last Compatibility Check: Works on v2.0.0
 
 
 ## Plugins:
