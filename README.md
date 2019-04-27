@@ -3,7 +3,8 @@
 [![Packagist](https://img.shields.io/badge/License-GPL-blue.svg)](https://github.com/DuckBoss/JJMumbleBot-PluginLibrary/blob/master/LICENSE)
 [![CodeFactor](https://www.codefactor.io/repository/github/duckboss/jjmumblebot-pluginlibrary/badge/master)](https://www.codefactor.io/repository/github/duckboss/jjmumblebot-pluginlibrary/overview/master)
 <br>
-A collection of plugins for JJMumbleBot that are not built-in.
+<br>
+A collection of plugins for <a href="https://github.com/DuckBoss/JJMumbleBot">JJMumbleBot</a> that are not built-in.
 
 ### Last Compatibility Check: Works on v2.0.0
 
