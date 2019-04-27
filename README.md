@@ -16,4 +16,4 @@ A collection of plugins for <a href="https://github.com/DuckBoss/JJMumbleBot">JJ
 - <b>osrs_wiki:</b> A plugin that displays pricing of items, wiki results, and quest summaries for old school runescape.
 
 ## Usage:
-- Copy the plugin folders from this repository into your plugins folder of JJMumbleBot
+- Copy the plugin folders from this repository into your JJMumbleBot plugins folder.
