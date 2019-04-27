@@ -14,3 +14,6 @@ A collection of plugins for <a href="https://github.com/DuckBoss/JJMumbleBot">JJ
 - <b>lmgtfy:</b> A plugin that uses the "Let Me Google That For You" API to search google.
 - <b>oblivion_creator:</b> A plugin that generates a custom character for the game oblivion.
 - <b>osrs_wiki:</b> A plugin that displays pricing of items, wiki results, and quest summaries for old school runescape.
+
+## Usage:
+- Copy the plugin folders from this repository into your plugins folder of JJMumbleBot
