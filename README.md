@@ -6,7 +6,7 @@
 <br>
 A collection of plugins for <a href="https://github.com/DuckBoss/JJMumbleBot">JJMumbleBot</a> that are not built-in.
 
-### Last Compatibility Check: Works on v2.0.0
+### Last Compatibility Check: Works on v3.0+
 
 
 ## Plugins:
@@ -14,6 +14,7 @@ A collection of plugins for <a href="https://github.com/DuckBoss/JJMumbleBot">JJ
 - <b>lmgtfy:</b> A plugin that uses the "Let Me Google That For You" API to search google.
 - <b>oblivion_creator:</b> A plugin that generates a custom character for the game oblivion.
 - <b>osrs_wiki:</b> A plugin that displays pricing of items, wiki results, and quest summaries for old school runescape.
+- <b>mhw_wiki:</b> A monster hunter world plugin that displays information such as type, weaknesses, ailments, etc of a monster.
 
 ## Usage:
-- Copy the plugin folders from this repository into your JJMumbleBot plugins folder.
+- Copy the plugin folders from this repository into your JJMumbleBot/plugins/extensions/ directory.
