@@ -1,68 +1,77 @@
-from templates.plugin_template import PluginBase
-from helpers.global_access import debug_print
-from helpers.global_access import GlobalMods as GM
+from JJMumbleBot.lib.plugin_template import PluginBase
+from JJMumbleBot.lib.utils.plugin_utils import PluginUtilityService
+from JJMumbleBot.lib.utils.logging_utils import log
+from JJMumbleBot.settings import global_settings as GS
+from JJMumbleBot.lib.utils.print_utils import rprint, dprint
+from JJMumbleBot.lib import privileges
+from JJMumbleBot.lib.resources.strings import *
 import random
 from datetime import datetime
-import privileges as pv
 
 
 class Plugin(PluginBase):
-    help_data = "All commands can be run by typing it in the channel or privately messaging DuckBot.<br>\
-                <b>!oblivion</b>: Generates a custom random oblivion character and messages it to the user.<br>\
-                <b>!oblivion_echo</b>: Generates a custom random oblivion character and messages it to the channel.<br>"
-
     spec_list = ['Combat', 'Magic', 'Stealth']
     attr_list = ['Strength', 'Intelligence', 'Willpower', 'Agility', 'Speed', 'Endurance', 'Personality', 'Luck']
     skill_list = ['Blade', 'Blunt', 'Hand To Hand', 'Armorer', 'Block', 'Heavy Armor', 'Athletics', 'Acrobatics',
                   'Light Armor', 'Security', 'Sneak', 'Marksman', 'Mercantile', 'Speechcraft', 'Illusion', 'Alchemy',
                   'Conjuration', 'Mysticism', 'Alteration', 'Destruction', 'Restoration']
 
-    plugin_version = "2.0.0"
-    priv_path = "oblivion_creator/oblivion_creator_privileges.csv"
-
     def __init__(self):
-        debug_print("Oblivion Character Creator Plugin Initialized.")
         super().__init__()
+        from os import path
+        from json import loads
+        self.plugin_name = path.basename(__file__).rsplit('.')[0]
+        self.metadata = PluginUtilityService.process_metadata(f'plugins/extensions/{self.plugin_name}')
+        self.plugin_cmds = loads(self.metadata.get(C_PLUGIN_INFO, P_PLUGIN_CMDS))
+        rprint(
+            f"{self.metadata[C_PLUGIN_INFO][P_PLUGIN_NAME]} v{self.metadata[C_PLUGIN_INFO][P_PLUGIN_VERS]} Plugin Initialized.")
 
-    def process_command(self, text):
+    def quit(self):
+        dprint(f"Exiting {self.plugin_name} plugin...", origin=L_SHUTDOWN)
+        log(INFO, f"Exiting {self.plugin_name} plugin...", origin=L_SHUTDOWN)
+
+    def get_metadata(self):
+        return self.metadata
+
+    def process(self, text):
         message = text.message.strip()
         message_parse = message[1:].split(' ', 1)
         command = message_parse[0]
 
         if command == "oblivion":
-            if not pv.plugin_privilege_checker(text, command, self.priv_path):
+            if not privileges.plugin_privilege_checker(text, command, self.plugin_name):
                 return
             self.randomize()
             speciality = self.choose_spec()
             attributes = self.choose_attrs()
             skills = self.choose_skills()
 
-            ret_text = f"<font color='{GM.cfg['PGUI_Settings']['IndexTextColor']}'>Specialty:</font><br>{speciality}<br>" \
-                       f"<font color='{GM.cfg['PGUI_Settings']['IndexTextColor']}'>Attributes:</font><br>{attributes[0]}<br>{attributes[1]}<br>" \
-                       f"<font color='{GM.cfg['PGUI_Settings']['IndexTextColor']}'>Skills:</font><br>{skills[0]}<br>{skills[1]}<br>{skills[2]}<br>{skills[3]}" \
+            ret_text = f"<font color='{GS.cfg[C_PGUI_SETTINGS][P_TXT_IND_COL]}'>Specialty:</font><br>{speciality}<br>" \
+                       f"<font color='{GS.cfg[C_PGUI_SETTINGS][P_TXT_IND_COL]}'>Attributes:</font><br>{attributes[0]}<br>{attributes[1]}<br>" \
+                       f"<font color='{GS.cfg[C_PGUI_SETTINGS][P_TXT_IND_COL]}'>Skills:</font><br>{skills[0]}<br>{skills[1]}<br>{skills[2]}<br>{skills[3]}" \
                        f"<br>{skills[4]}<br>{skills[5]}<br>{skills[6]}"
 
-            GM.gui.quick_gui(f"Oblivion character generated for: {GM.mumble.users[text.actor]['name']}", text_type='header', box_align='left')
+            GS.gui_service.quick_gui(f"Oblivion character generated for: {GS.mumble_inst.users[text.actor]['name']}", text_type='header', box_align='left')
 
-            GM.gui.quick_gui(f"<font color='{GM.cfg['PGUI_Settings']['HeaderTextColor']}'>Oblivion Character Generated:</font><br>{ret_text}", text_type='header', box_align='left', user=GM.mumble.users[text.actor]['name'])
+            GS.gui_service.quick_gui(f"<font color='{GS.cfg[C_PGUI_SETTINGS][P_TXT_HEAD_COL]}'>Oblivion Character Generated:</font><br>{ret_text}", text_type='header', box_align='left', user=GS.mumble_inst.users[text.actor]['name'])
             return
 
         if command == "oblivion_echo":
-            if not pv.plugin_privilege_checker(text, command, self.priv_path):
+            if not privileges.plugin_privilege_checker(text, command, self.plugin_name):
                 return
             self.randomize()
             speciality = self.choose_spec()
             attributes = self.choose_attrs()
             skills = self.choose_skills()
 
-            ret_text = f"<font color='{GM.cfg['PGUI_Settings']['IndexTextColor']}'>Specialty:</font><br>{speciality}<br>" \
-                       f"<font color='{GM.cfg['PGUI_Settings']['IndexTextColor']}'>Attributes:</font><br>{attributes[0]}<br>{attributes[1]}<br>" \
-                       f"<font color='{GM.cfg['PGUI_Settings']['IndexTextColor']}'>Skills:</font><br>{skills[0]}<br>{skills[1]}<br>{skills[2]}<br>{skills[3]}" \
+            ret_text = f"<font color='{GS.cfg[C_PGUI_SETTINGS][P_TXT_IND_COL]}'>Specialty:</font><br>{speciality}<br>" \
+                       f"<font color='{GS.cfg[C_PGUI_SETTINGS][P_TXT_IND_COL]}'>Attributes:</font><br>{attributes[0]}<br>{attributes[1]}<br>" \
+                       f"<font color='{GS.cfg[C_PGUI_SETTINGS][P_TXT_IND_COL]}'>Skills:</font><br>{skills[0]}<br>{skills[1]}<br>{skills[2]}<br>{skills[3]}" \
                        f"<br>{skills[4]}<br>{skills[5]}<br>{skills[6]}"
 
-            GM.gui.quick_gui(f"Oblivion character generated for: {GM.mumble.users[text.actor]['name']}", text_type='header', box_align='left')
+            GS.gui_service.quick_gui(f"Oblivion character generated for: {GS.mumble_inst.users[text.actor]['name']}", text_type='header', box_align='left')
 
-            GM.gui.quick_gui(f"<font color='{GM.cfg['PGUI_Settings']['HeaderTextColor']}'>Oblivion Character Generated:</font><br>{ret_text}", text_type='header', box_align='left')
+            GS.gui_service.quick_gui(f"<font color='{GS.cfg[C_PGUI_SETTINGS][P_TXT_HEAD_COL]}'>Oblivion Character Generated:</font><br>{ret_text}", text_type='header', box_align='left')
             return
 
     def randomize(self):
@@ -95,21 +104,3 @@ class Plugin(PluginBase):
             skills_ret.append(cur_attr)
             random.seed(datetime.now())
         return skills_ret
-
-    def plugin_test(self):
-        debug_print("Oblivion Character Creator Plugin self-test callback.")
-
-    def quit(self):
-        debug_print("Exiting Oblivion Character Creator Plugin")
-
-    def help(self):
-        return self.help_data
-
-    def is_audio_plugin(self):
-        return False
-
-    def get_plugin_version(self):
-        return self.plugin_version
-
-    def get_priv_path(self):
-        return self.priv_path
