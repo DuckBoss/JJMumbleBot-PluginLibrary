@@ -7,6 +7,7 @@
 A collection of plugins for <a href="https://github.com/DuckBoss/JJMumbleBot">JJMumbleBot</a> that are not built-in.
 
 ### Last Compatibility Check: Works on v3.0+
+### These plugins have not been updating for v4.0+ releases yet
 
 
 ## Plugins:
