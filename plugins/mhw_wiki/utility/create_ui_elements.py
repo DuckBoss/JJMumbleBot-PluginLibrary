@@ -37,7 +37,8 @@ def create_monster_image(monster_data_dict, max_img_size=65536):
             f"""{img_string}""",
             'header',
             text_color=global_settings.cfg[C_PGUI_SETTINGS][P_TXT_HEAD_COL],
-            text_align='center'
+            text_align='center',
+            image=True
         )
     else:
         content = global_settings.gui_service.make_content(

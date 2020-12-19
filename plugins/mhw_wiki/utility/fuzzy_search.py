@@ -1,6 +1,6 @@
+from JJMumbleBot.plugins.extensions.mhw_wiki.resources.monster_names import monsters_storage_large, \
+    monsters_storage_elder, monsters_storage_small, monsters_storage_endemic
 from fuzzywuzzy import process
-from JJMumbleBot.lib.utils.print_utils import rprint, dprint
-from JJMumbleBot.plugins.extensions.mhw_wiki.resources.monster_names import monsters_storage_large, monsters_storage_elder, monsters_storage_small, monsters_storage_endemic
 
 
 def find_closest_match(fuzzy_list):
@@ -32,7 +32,6 @@ def fuzzy_search_monsters(name, limit, include='all'):
         matched_monsters += process.extract(name, monsters_storage_large, limit=limit)
         matched_monsters += process.extract(name, monsters_storage_small, limit=limit)
         matched_monsters += process.extract(name, monsters_storage_endemic, limit=limit)
-        rprint(matched_monsters)
     else:
         if 'elder' in include:
             matched_monsters += process.extract(name, monsters_storage_elder, limit=limit)
