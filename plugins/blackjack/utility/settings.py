@@ -1,0 +1,19 @@
+# Metadata.ini file
+blackjack_metadata = None
+# Game state
+game_started = False
+game_waiting = False
+deck = None
+player_counter = 0
+# Player state
+game_host = None
+current_player = None
+lobby_users = {}
+game_users = {}
+max_players = 8
+# Dealer state
+dealer = None
+# Bet limits
+min_bet = 2
+max_bet = 500
+
